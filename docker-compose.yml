@@ -1,0 +1,88 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    # restart: always
+    environment:
+      POSTGRES_DB: carly
+      POSTGRES_USER: dummy_user
+      POSTGRES_PASSWORD: dummy_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # restart: always
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+      - redis
+      - celery
+    # App should load from the volume
+    volumes:
+      - .:/app
+    # Run the app
+    command: ["gunicorn", "-b", "0.0.0.0:5000", "wsgi:app"]
+  
+  flask-migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    # Run the migrations
+    command: ["flask", "db", "upgrade"]
+    depends_on:
+      - postgres
+  
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # restart: always
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    # Run the celery worker
+    command: ["celery", "-A", "tasks", "worker", "--loglevel=info"]
+    depends_on:
+      - postgres
+      - redis
+    
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # restart: always
+    env_file:
+      - .env
+    environment:
+      - FLASK_ENV=testing  # Override the environment for testing
+    volumes:
+      - .:/app
+    # Run the tests
+    command: ["python", "-m", "unittest"]
+    depends_on:
+      - redis
+      - celery
+  
+  redis:
+    image: redis:latest
+    # restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+  
