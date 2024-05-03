@@ -65,6 +65,7 @@ Flask-based API demonstrating auth functions
  * Headers:
     ```
     X-Client-Version: 2.1.0 (Minimum)
+    Authorization: Bearer <JWT_TOKEN>
     ```
  * Example response:
     ```
@@ -123,6 +124,34 @@ Flask-based API demonstrating auth functions
     }
     ```
 
+**Update User Language**
+ * Route: PATCH `http://localhost:5000/auth/`
+ * Description: Update user's language.
+ * Content type: JSON
+ * Headers:
+    ```
+    X-Client-Version: 2.1.0 (Minimum)
+    Authorization: Bearer <JWT_TOKEN>
+    ```
+ * Example request body:
+    ```
+    {
+        "language": "en"
+    }
+    ```
+ * Example response:
+    ```
+    {
+        "data": {
+            "user": {
+                "country": "FR",
+                "customer_id": "8b4a1343-292d-45ed-ba5f-846fa9167ede",
+                "email": "njmekwhvmncrzuhwja@protonmail.com",
+                "language": "en"
+            }
+        }
+    }
+    ```
 
 ## Logs
 **Destinations**:
