@@ -18,6 +18,16 @@ Flask-based API demonstrating auth functions
 - Run: `docker compose up tests`
 
 
+## Docker Services
+- **flask-app**: Servers the main application.
+- **flask-migrations**: Applying db migrations, exits after execution.
+- **tests**: Runs unit tests, exists after execution.
+- **postgres**: Database for `users` and other models.
+- **celery**: Handles async tasks, like emailing verification codes for password reset.
+- **redis**: Message broker for `celery`.
+
+
+
 ## API Guide
 ### Endpoints
 **Login**:
