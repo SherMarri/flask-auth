@@ -7,8 +7,14 @@ Flask-based API demonstrating auth functions
 - Run db migrations: `docker compose up flask-migrations`
 - Run: `docker compose up flask-app`
 
+## Ingest sample users
+- Copy `customer_export.json` to project root directory.
+- Run the following commands:
+    - `docker compose up flask-app`
+    - `docker compose exec -it flask-app bash`
+    - `python cli.py create-users customer_export.json`
 
-## Unit tests
+## Unit Tests
 - Run: `docker compose up tests`
 
 
@@ -106,39 +112,6 @@ Flask-based API demonstrating auth functions
         "message": "Password reset."
     }
     ```
-
-
-## App Folder Structure
-- app
-    - auth
-        - auth_service.py
-        - exceptions.py
-        - router.py
-        - schemas.py
-        - utils.py
-    - core
-        - config.py
-        - exceptions.py
-        - logger.py
-        - schemas.py
-    - migrations
-    - api.py
-    - server.py
-    - sql_models.py
-    - utils.py
-- cli.py
-- docker-compose.yml
-- Dockerfile
-- .env
-- .env.example
-- requirements.txt
-- simulate.py
-- tasks.py
-- tests
-- venv
-- .vscode
-    - launch.json
-- wsgi.py
 
 
 ## Logs
