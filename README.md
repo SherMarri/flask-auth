@@ -7,7 +7,7 @@ Flask-based API demonstrating auth functions
 - Run db migrations: `docker compose up flask-migrations`
 - Run: `docker compose up flask-app`
 
-## Ingest sample users
+## Ingest Sample Data
 - Copy `customer_export.json` to project root directory.
 - Run the following commands:
     - `docker compose up flask-app`
