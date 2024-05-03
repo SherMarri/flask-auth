@@ -1,7 +1,6 @@
 from uuid import uuid4
 
 from app.core.config import CONFIG
-from app.api import app
 
 
 def set_request_id(request):
