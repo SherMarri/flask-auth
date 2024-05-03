@@ -60,7 +60,7 @@ Flask-based API demonstrating auth functions
     }
     ```
 **Get Current User**
- * Route: GET `http://localhost:5000/auth/`
+ * Route: GET `http://localhost:5000/auth/user`
  * Description: Get currently logged in user.
  * Headers:
     ```
@@ -125,7 +125,7 @@ Flask-based API demonstrating auth functions
     ```
 
 **Update User Language**
- * Route: PATCH `http://localhost:5000/auth/`
+ * Route: PATCH `http://localhost:5000/auth/user/`
  * Description: Update user's language.
  * Content type: JSON
  * Headers:

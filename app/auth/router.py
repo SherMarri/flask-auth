@@ -67,7 +67,7 @@ def reset_password():
 
 
 # Get current user GET request with JWT token in Authorization header
-@auth_router.route("/", methods=["GET"])
+@auth_router.route("/user", methods=["GET"])
 @authenticate()
 def get_current_user():
     try:
@@ -79,7 +79,7 @@ def get_current_user():
         return schemas.UserResponse().dump({"error": "User not found."}), 404
 
 
-@auth_router.route("/", methods=["PATCH"])
+@auth_router.route("/user", methods=["PATCH"])
 @authenticate()
 def update_user():
     try:

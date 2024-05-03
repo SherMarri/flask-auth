@@ -259,7 +259,7 @@ class TestGetCurrentUser(BaseAuthTest):
         jwt = response.json["data"]["jwt"]
         # Then, get the current user
         response = self.app.get(
-            "/auth/",
+            "/auth/user",
             headers={
                 "Authorization": f"Bearer {jwt}",
                 "X-Client-Version": self.VALID_CLIENT_VERSION,
@@ -272,7 +272,7 @@ class TestGetCurrentUser(BaseAuthTest):
     def test_get_current_user_invalid_jwt(self):
         """Test the get current user endpoint with an invalid JWT."""
         response = self.app.get(
-            "/auth/",
+            "/auth/user",
             headers={
                 "Authorization": "Bearer invalid",
                 "X-Client-Version": self.VALID_CLIENT_VERSION,
@@ -283,7 +283,7 @@ class TestGetCurrentUser(BaseAuthTest):
     def test_get_current_user_missing_jwt(self):
         """Test the get current user endpoint with a missing JWT."""
         response = self.app.get(
-            "/auth/",
+            "/auth/user",
             headers={"X-Client-Version": self.VALID_CLIENT_VERSION},
         )
         self.assertEqual(response.status_code, 401)
@@ -295,7 +295,7 @@ class TestUpdateUser(BaseAuthTest):
     def test_unauthenticated(self):
         """Test the update user endpoint without authentication."""
         response = self.app.patch(
-            "/auth/",
+            "/auth/user",
             json={"language": "en"},
             headers={"X-Client-Version": self.VALID_CLIENT_VERSION},
         )
@@ -314,7 +314,7 @@ class TestUpdateUser(BaseAuthTest):
         # Then, update the user's language
         language = User.VALID_LANGUAGES[1]
         response = self.app.patch(
-            "/auth/",
+            "/auth/user",
             json={"language": language},
             headers={
                 "Authorization": f"Bearer {jwt}",
@@ -338,7 +338,7 @@ class TestUpdateUser(BaseAuthTest):
         jwt = response.json["data"]["jwt"]
         # Then, update the user's language
         response = self.app.patch(
-            "/auth/",
+            "/auth/user",
             json={"language": "invalid"},
             headers={
                 "Authorization": f"Bearer {jwt}",
@@ -359,7 +359,7 @@ class TestUpdateUser(BaseAuthTest):
         jwt = response.json["data"]["jwt"]
         # Then, update the user's language
         response = self.app.patch(
-            "/auth/",
+            "/auth/user",
             json={"country": "US"},
             headers={
                 "Authorization": f"Bearer {jwt}",
